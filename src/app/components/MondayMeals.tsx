@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line } from 'recharts';
 import { ChevronDown, ChevronUp, Printer, Share2, Filter, Target } from 'lucide-react';
 
 const meals = [
@@ -11,6 +11,8 @@ const meals = [
     type: 'Breakfast',
     description: 'English Breakfast tea with milk',
     ingredients: ['Black tea', 'Milk'],
+    plantFoods: ['Black tea'],
+    runningPlantCount: 1,
     calories: 30,
     protein: 1,
     carbs: 4,
@@ -22,6 +24,8 @@ const meals = [
     type: 'Breakfast',
     description: 'Banana-berry overnight oats with chia and almond butter',
     ingredients: ['Oats', 'Banana', 'Raspberries', 'Blueberries', 'Chia seeds', 'Almonds', 'Almond milk'],
+    plantFoods: ['Oats', 'Banana', 'Raspberries', 'Blueberries', 'Chia seeds', 'Almonds'],
+    runningPlantCount: 7,
     calories: 430,
     protein: 12,
     carbs: 65,
@@ -33,6 +37,8 @@ const meals = [
     type: 'Snack',
     description: 'Apple with almonds and dark chocolate square',
     ingredients: ['Apple', 'Almonds', 'Dark chocolate'],
+    plantFoods: ['Apple', 'Cacao'],
+    runningPlantCount: 9,
     calories: 195,
     protein: 6,
     carbs: 22,
@@ -44,6 +50,8 @@ const meals = [
     type: 'Lunch',
     description: 'Rainbow Buddha Bowl',
     ingredients: ['Quinoa', 'Chickpeas', 'Spinach', 'Carrots', 'Red cabbage', 'Avocado', 'Tahini dressing'],
+    plantFoods: ['Quinoa', 'Chickpeas', 'Spinach', 'Carrots', 'Red cabbage', 'Avocado'],
+    runningPlantCount: 15,
     calories: 520,
     protein: 18,
     carbs: 68,
@@ -55,6 +63,8 @@ const meals = [
     type: 'Snack',
     description: 'Orange and sugar snap peas with tea and milk',
     ingredients: ['Orange', 'Sugar snap peas', 'Black tea', 'Milk'],
+    plantFoods: ['Orange', 'Sugar snap peas'],
+    runningPlantCount: 17,
     calories: 115,
     protein: 3,
     carbs: 24,
@@ -77,6 +87,8 @@ const meals = [
       'Chipotle peppers',
       'Onions'
     ],
+    plantFoods: ['Black beans', 'Bell peppers', 'Corn', 'Tomatillos', 'Cilantro', 'Lime', 'Jalapeno', 'Chipotle peppers', 'Onions'],
+    runningPlantCount: 26,
     calories: 630,
     protein: 45,
     carbs: 68,
@@ -88,6 +100,8 @@ const meals = [
     type: 'Snack',
     description: 'Greek yogurt with pomegranate and dark chocolate',
     ingredients: ['Greek yogurt', 'Pomegranate seeds', 'Dark chocolate'],
+    plantFoods: ['Pomegranate', 'Cacao'],
+    runningPlantCount: 28,
     calories: 160,
     protein: 12,
     carbs: 16,
@@ -252,7 +266,45 @@ const MondayMeals = () => {
           </ResponsiveContainer>
         </div>
       </div>
-
+{/* Plant Foods Accumulation Chart */}
+<div className="bg-white rounded-lg shadow p-6 mb-8">
+        <h3 className="text-xl font-semibold mb-4">Plant Foods Accumulation</h3>
+        <div className="h-64">
+          <ResponsiveContainer width="100%" height="100%">
+            <LineChart data={filteredMeals}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="time" />
+              <YAxis />
+              <Tooltip 
+                content={({ active, payload }) => {
+                  if (active && payload && payload.length) {
+                    const data = payload[0].payload;
+                    return (
+                      <div className="bg-white p-3 border border-gray-200 rounded shadow">
+                        <p className="font-bold">{data.time} - {data.meal}</p>
+                        <p className="text-sm">New plant foods: {data.plantFoods.join(', ')}</p>
+                        <p>Total unique plant foods: {data.runningPlantCount}</p>
+                      </div>
+                    );
+                  }
+                  return null;
+                }}
+              />
+              <Line 
+                type="stepAfter" 
+                dataKey="runningPlantCount" 
+                stroke="#4CAF50" 
+                strokeWidth={2} 
+                dot={{ fill: '#4CAF50' }} 
+                name="Unique Plant Foods"
+              />
+            </LineChart>
+          </ResponsiveContainer>
+        </div>
+        <p className="text-sm text-gray-600 mt-2">
+          Daily total: {meals[meals.length - 1].runningPlantCount} unique plant foods
+        </p>
+      </div>
       {/* Meal Cards */}
       <div className="space-y-6 mb-8">
         {filteredMeals.map((meal, index) => (
