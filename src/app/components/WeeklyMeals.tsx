@@ -4,6 +4,21 @@ import React, { useState } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line } from 'recharts';
 import { ChevronDown, ChevronUp, Printer, Share2, Filter, Target } from 'lucide-react';
 
+// Add type definitions here
+interface Meal {
+  time: string;
+  meal: string;
+  type: string;
+  description: string;
+  ingredients: string[];
+  plantFoods: string[];
+  runningPlantCount: number;
+  calories: number;
+  protein: number;
+  carbs: number;
+  fats: number;
+}
+
 const mondayMeals = [
   {
     time: '7:00',
