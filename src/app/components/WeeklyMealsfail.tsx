@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line } from 'recharts';
 import { ChevronDown, ChevronUp, Printer, Share2, Filter, Target } from 'lucide-react';
 
+// Add type definitions here
 interface Meal {
   time: string;
   meal: string;
@@ -18,7 +19,7 @@ interface Meal {
   fats: number;
 }
 
-const mondayMeals: Meal[] = [
+const mondayMeals = [
   {
     time: '7:00',
     meal: 'Wake Up',
@@ -123,7 +124,7 @@ const mondayMeals: Meal[] = [
   }
 ];
 
-const tuesdayMeals: Meal[] = [
+const tuesdayMeals = [
   {
     time: '7:00',
     meal: 'Wake Up',
@@ -227,14 +228,16 @@ const mealsByDay = {
   'Sunday': []
 };
 
-const WeeklyMeals: React.FC = () => {
+const WeeklyMeals = () => {
   const [activeDay, setActiveDay] = useState('Monday');
   const [expandedMeal, setExpandedMeal] = useState<number | null>(null);
   const [selectedMealType, setSelectedMealType] = useState<string>('All');
   const [showNutritionalGoals, setShowNutritionalGoals] = useState(false);
 
+  // Get current meals based on active day
   const currentMeals = mealsByDay[activeDay as keyof typeof mealsByDay] || [];
 
+  // Daily goals
   const nutritionalGoals = {
     calories: 2000,
     protein: 100,
@@ -242,6 +245,7 @@ const WeeklyMeals: React.FC = () => {
     fats: 65
   };
 
+  // Calculate totals
   const totalNutrition = currentMeals.reduce(
     (acc, meal) => ({
       calories: acc.calories + meal.calories,
@@ -252,16 +256,19 @@ const WeeklyMeals: React.FC = () => {
     { calories: 0, protein: 0, carbs: 0, fats: 0 }
   );
 
+  // Filter meals
   const filteredMeals = selectedMealType === 'All' 
     ? currentMeals 
     : currentMeals.filter(meal => meal.type === selectedMealType);
 
   const mealTypes = ['All', 'Breakfast', 'Lunch', 'Dinner', 'Snack'];
 
+  // Handle print
   const handlePrint = () => {
     window.print();
   };
 
+  // Handle share
   const handleShare = async () => {
     if (navigator.share) {
       try {
@@ -378,6 +385,7 @@ const WeeklyMeals: React.FC = () => {
               <XAxis dataKey="time" />
               <YAxis />
               <Tooltip 
+                content={({ active, payload }) => {<Tooltip 
                 content={({ active, payload }) => {
                   if (active && payload && payload.length) {
                     const data = payload[0].payload;
