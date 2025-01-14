@@ -699,7 +699,47 @@ const mealsByDay = {
   'Saturday': saturdayMeals,
   'Sunday': sundayMeals
 };
+const categorizeIngredients = (meals: Meal[]) => {
+  const categories = {
+    proteins: new Set<string>(),
+    grainsLegumes: new Set<string>(),
+    vegetables: new Set<string>(),
+    fruits: new Set<string>(),
+    nutsSeeds: new Set<string>(),
+    herbsSpices: new Set<string>(),
+    other: new Set<string>()
+  };
 
+  // Predefined category lists
+  const knownIngredients = {
+    proteins: ['Chicken breast', 'Tofu', 'Greek yogurt', 'Milk', 'Queso fresco'],
+    grainsLegumes: ['Oats', 'Quinoa', 'Rice', 'Farro', 'Black beans', 'Chickpeas', 'Sourdough bread', 'Corn tortillas', 'Buckwheat', 'Amaranth', 'Millet', 'Teff', 'Freekeh', 'Sorghum', "Job's tears", 'Rye berries'],
+    vegetables: ['Spinach', 'Carrots', 'Red cabbage', 'Bell peppers', 'Zucchini', 'Cherry tomatoes', 'Sugar snap peas', 'Broccoli', 'Kale', 'Mushrooms', 'Bok choy', 'Asparagus', 'Artichoke hearts', 'Collard greens', 'Japanese yam', 'Kohlrabi', 'Mizuna', 'Malabar spinach', 'Chinese broccoli'],
+    fruits: ['Banana', 'Raspberries', 'Blueberries', 'Apple', 'Orange', 'Pomegranate', 'Mango', 'Dragon fruit', 'Passion fruit', 'Persimmon', 'Lime', 'Lemon'],
+    nutsSeeds: ['Almonds', 'Chia seeds', 'Pumpkin seeds', 'Walnuts', 'Hemp seeds', 'Brazil nuts', 'Pecans', 'Sunflower seeds', 'Macadamia nuts', 'Pine nuts', 'Flax seeds', 'Caraway seeds'],
+    herbsSpices: ['Basil', 'Parsley', 'Cilantro', 'Thyme', 'Turmeric', 'Mint', 'Cardamom', 'Fennel', 'Mexican oregano', 'Tarragon', 'Winter savory']
+  };
+
+  meals.forEach(meal => {
+    meal.ingredients.forEach(ingredient => {
+      // Check each category
+      let categorized = false;
+      for (const [category, list] of Object.entries(knownIngredients)) {
+        if (list.includes(ingredient)) {
+          categories[category as keyof typeof categories].add(ingredient);
+          categorized = true;
+          break;
+        }
+      }
+      // If not found in any category, add to other
+      if (!categorized) {
+        categories.other.add(ingredient);
+      }
+    });
+  });
+
+  return categories;
+};
 const WeeklyMeals: React.FC = () => {
   const [activeDay, setActiveDay] = useState('Monday');
   const [expandedMeal, setExpandedMeal] = useState<number | null>(null);
@@ -979,6 +1019,26 @@ const WeeklyMeals: React.FC = () => {
             <p className="text-gray-600">Total Fats</p>
             <p className="text-2xl font-bold">{totalNutrition.fats}g</p>
           </div>
+        </div>
+      </div>
+      {/* Daily Ingredients Summary */}
+      <div className="bg-white rounded-lg shadow p-6 mt-8">
+        <h3 className="text-xl font-bold mb-4">Daily Ingredients Summary</h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {Object.entries(categorizeIngredients(currentMeals)).map(([category, ingredients]) => (
+            ingredients.size > 0 && (
+              <div key={category} className="space-y-2">
+                <h4 className="font-semibold capitalize text-purple-600">
+                  {category.replace(/([A-Z])/g, ' $1').trim()}
+                </h4>
+                <ul className="list-disc pl-4 space-y-1">
+                  {Array.from(ingredients).sort().map((ingredient, idx) => (
+                    <li key={idx} className="text-gray-600">{ingredient}</li>
+                  ))}
+                </ul>
+              </div>
+            )
+          ))}
         </div>
       </div>
     </div>
