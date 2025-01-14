@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import Image from 'next/image';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line } from 'recharts';
 import { ChevronDown, ChevronUp, Printer, Share2, Filter, Target } from 'lucide-react';
 
@@ -791,9 +792,19 @@ const WeeklyMeals: React.FC = () => {
       alert('Link copied to clipboard!');
     }
   };
-
   return (
-    <div className="max-w-7xl mx-auto p-4">
+      <div className="max-w-7xl mx-auto p-4">
+        {/* Logo */}
+        <div className="flex justify-center mb-8">
+          <Image
+            src="/Rellished-Logo.png"
+            alt="Rellished Logo"
+            width={300}
+            height={160}
+            priority
+          />
+        </div>
+
       {/* Day Selection */}
       <div className="flex space-x-1 mb-8 bg-gray-100 p-1 rounded-lg overflow-x-auto">
         {Object.keys(mealsByDay).map((day) => (
