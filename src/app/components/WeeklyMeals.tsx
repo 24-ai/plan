@@ -796,13 +796,15 @@ const WeeklyMeals: React.FC = () => {
       <div className="max-w-7xl mx-auto p-4">
         {/* Logo */}
         <div className="flex justify-center mb-8">
-          <Image
-            src="/Rellished-Logo.png"
-            alt="Rellished Logo"
-            width={300}
-            height={160}
-            priority
+          <a href="https://rellished.com" target="_blank" rel="noopener noreferrer">
+            <Image
+             src="/Rellished-Logo.png"
+             alt="Rellished Logo"
+             width={300}
+             height={160}
+             priority
           />
+        </a>
         </div>
 
       {/* Day Selection */}
