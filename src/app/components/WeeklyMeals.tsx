@@ -812,7 +812,7 @@ const WeeklyMeals: React.FC = () => {
         <h1 className="text-3xl font-bold mb-4 text-center text-purple-800">Welcome to Rellished Weekly Meal Planner</h1>
         <div className="max-w-3xl mx-auto text-center mb-8">
           <p className="text-gray-700 leading-relaxed">
-            We believe that eating well shouldn't be complicated. This weekly meal plan is designed to take the 
+            We believe that eating well shouldn&apos;t be complicated. This weekly meal plan is designed to take the 
             guesswork out of healthy eating while introducing you to a diverse range of delicious, nutrient-rich foods.
           </p>
         </div>
@@ -824,7 +824,7 @@ const WeeklyMeals: React.FC = () => {
                 <ChartBar size={24} className="text-purple-600" />
               </div>
               <h3 className="font-semibold mb-2 text-purple-900">Track Nutrition</h3>
-              <p className="text-gray-600">Balance your nutrition with carefully planned macros for every meal</p>
+              <p className="text-gray-600">Balance your nutrition with carefully planned ingredients for every meal</p>
             </div>
           </div>
           
@@ -851,7 +851,7 @@ const WeeklyMeals: React.FC = () => {
 
         <div className="text-center text-gray-700 bg-white p-6 rounded-lg shadow-sm max-w-3xl mx-auto">
           <p className="leading-relaxed">
-            Explore each day's meals, dive into the nutritional details, and use our interactive features to track your 
+            Explore each day&apos;s meals, dive into the nutritional details, and use our interactive features to track your 
             progress. We hope this tool helps you discover the joy of diverse, nutritious eating while making your 
             meal planning journey easier and more enjoyable.
           </p>
