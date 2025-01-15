@@ -3,7 +3,8 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line } from 'recharts';
-import { ChevronDown, ChevronUp, Printer, Share2, Filter, Target } from 'lucide-react';
+import { ChevronDown, ChevronUp, Printer, Share2, Filter, Target, ChartBar, Sprout, Utensils } from 'lucide-react';
+
 
 interface Meal {
   time: string;
@@ -805,7 +806,57 @@ const WeeklyMeals: React.FC = () => {
              priority
           />
         </a>
+      </div>
+      {/* Introduction Section */}
+      <div className="bg-gradient-to-br from-white to-purple-50 rounded-lg shadow-lg p-8 mb-8 border border-purple-100">
+        <h1 className="text-3xl font-bold mb-4 text-center text-purple-800">Welcome to Rellished Weekly Meal Planner</h1>
+        <div className="max-w-3xl mx-auto text-center mb-8">
+          <p className="text-gray-700 leading-relaxed">
+            We believe that eating well shouldn't be complicated. This weekly meal plan is designed to take the 
+            guesswork out of healthy eating while introducing you to a diverse range of delicious, nutrient-rich foods.
+          </p>
         </div>
+        
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+          <div className="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+            <div className="flex flex-col items-center text-center">
+              <div className="bg-purple-100 p-3 rounded-full mb-4">
+                <ChartBar size={24} className="text-purple-600" />
+              </div>
+              <h3 className="font-semibold mb-2 text-purple-900">Track Nutrition</h3>
+              <p className="text-gray-600">Balance your nutrition with carefully planned macros for every meal</p>
+            </div>
+          </div>
+          
+          <div className="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+            <div className="flex flex-col items-center text-center">
+              <div className="bg-purple-100 p-3 rounded-full mb-4">
+                <Sprout size={24} className="text-purple-600" />
+              </div>
+              <h3 className="font-semibold mb-2 text-purple-900">Diverse Plants</h3>
+              <p className="text-gray-600">Increase your plant diversity with over 140 unique plant foods</p>
+            </div>
+          </div>
+          
+          <div className="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+            <div className="flex flex-col items-center text-center">
+              <div className="bg-purple-100 p-3 rounded-full mb-4">
+                <Utensils size={24} className="text-purple-600" />
+              </div>
+              <h3 className="font-semibold mb-2 text-purple-900">Get Inspired</h3>
+              <p className="text-gray-600">Discover exciting new ingredients and meal combinations</p>
+            </div>
+          </div>
+        </div>
+
+        <div className="text-center text-gray-700 bg-white p-6 rounded-lg shadow-sm max-w-3xl mx-auto">
+          <p className="leading-relaxed">
+            Explore each day's meals, dive into the nutritional details, and use our interactive features to track your 
+            progress. We hope this tool helps you discover the joy of diverse, nutritious eating while making your 
+            meal planning journey easier and more enjoyable.
+          </p>
+        </div>
+      </div>    
 
       {/* Day Selection */}
       <div className="flex space-x-1 mb-8 bg-gray-100 p-1 rounded-lg overflow-x-auto">
