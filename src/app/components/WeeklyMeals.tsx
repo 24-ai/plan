@@ -742,8 +742,16 @@ const categorizeIngredients = (meals: Meal[]) => {
 
   return categories;
 };
+
+const getCurrentDay = () => {
+  const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+  const today = new Date().getDay(); // Returns 0-6 (Sunday-Saturday)
+  return days[today];
+};
+
 const WeeklyMeals: React.FC = () => {
-  const [activeDay, setActiveDay] = useState('Monday');
+  // Update this line
+  const [activeDay, setActiveDay] = useState(getCurrentDay());
   const [expandedMeal, setExpandedMeal] = useState<number | null>(null);
   const [selectedMealType, setSelectedMealType] = useState<string>('All');
   const [showNutritionalGoals, setShowNutritionalGoals] = useState(false);
