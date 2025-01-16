@@ -5,6 +5,42 @@ import Image from 'next/image';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line } from 'recharts';
 import { ChevronDown, ChevronUp, Printer, Share2, Filter, Target, ChartBar, Sprout, Utensils } from 'lucide-react';
 
+const countFruitAndVeg = (meals: Meal[]) => {
+  const fruits = new Set<string>();
+  const vegetables = new Set<string>();
+
+  const knownFruits = [
+    'Apple', 'Banana', 'Raspberries', 'Blueberries', 'Orange', 'Pomegranate', 
+    'Mango', 'Dragon fruit', 'Passion fruit', 'Mulberries', 'Kiwi', 'Pear',
+    'Longan fruit', 'Soursop', 'Persimmon'
+  ];
+  
+  const knownVegetables = [
+    'Spinach', 'Carrots', 'Red cabbage', 'Sugar snap peas', 'Brussels sprouts',
+    'Bell peppers', 'Zucchini', 'Cherry tomatoes', 'Broccoli', 'Kale',
+    'Bok choy', 'Spring onions', 'Asparagus', 'Artichoke hearts', 'Collard greens',
+    'Watercress', 'Radicchio', 'Mizuna', 'Chinese broccoli'
+  ];
+
+  meals.forEach(meal => {
+    meal.ingredients.forEach(ingredient => {
+      if (knownFruits.includes(ingredient)) {
+        fruits.add(ingredient);
+      }
+      if (knownVegetables.includes(ingredient)) {
+        vegetables.add(ingredient);
+      }
+    });
+  });
+
+  return {
+    fruits: Array.from(fruits),
+    vegetables: Array.from(vegetables),
+    fruitCount: fruits.size,
+    vegCount: vegetables.size,
+    totalCount: fruits.size + vegetables.size
+  };
+};
 
 interface Meal {
   time: string;
@@ -1022,7 +1058,33 @@ const WeeklyMeals: React.FC = () => {
           Daily total: {currentMeals[currentMeals.length - 1]?.runningPlantCount || 0} unique plant foods
         </p>
       </div>
-
+      {/* Fruit and Vegetable Counter */}
+      <div className="bg-white rounded-lg shadow p-6 mb-8">
+        <h3 className="text-xl font-semibold mb-4">Daily Fruit & Vegetable Diversity</h3>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="bg-green-50 p-4 rounded-lg">
+            <h4 className="font-semibold text-green-700 mb-2">Vegetables</h4>
+            <p className="text-3xl font-bold text-green-600">{countFruitAndVeg(currentMeals).vegCount}</p>
+            <p className="text-sm text-green-600 mt-1">unique vegetables</p>
+            <div className="mt-2 text-sm text-green-700">
+              {countFruitAndVeg(currentMeals).vegetables.join(', ')}
+            </div>
+          </div>
+          <div className="bg-orange-50 p-4 rounded-lg">
+            <h4 className="font-semibold text-orange-700 mb-2">Fruits</h4>
+            <p className="text-3xl font-bold text-orange-600">{countFruitAndVeg(currentMeals).fruitCount}</p>
+            <p className="text-sm text-orange-600 mt-1">unique fruits</p>
+            <div className="mt-2 text-sm text-orange-700">
+              {countFruitAndVeg(currentMeals).fruits.join(', ')}
+            </div>
+          </div>
+          <div className="bg-purple-50 p-4 rounded-lg">
+            <h4 className="font-semibold text-purple-700 mb-2">Total</h4>
+            <p className="text-3xl font-bold text-purple-600">{countFruitAndVeg(currentMeals).totalCount}</p>
+            <p className="text-sm text-purple-600 mt-1">total unique fruits & vegetables</p>
+          </div>
+        </div>
+      </div>
       {/* Meal Cards */}
       <div className="space-y-6 mb-8">
         {filteredMeals.map((meal, index) => (
