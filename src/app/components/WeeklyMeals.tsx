@@ -11,14 +11,14 @@ const countFruitAndVeg = (meals: Meal[]) => {
 
   const knownFruits = [
     'Apple', 'Banana', 'Raspberries', 'Blueberries', 'Orange', 'Pomegranate', 
-    'Mango', 'Dragon fruit', 'Passion fruit', 'Mulberries', 'Kiwi', 'Pear',
+    'Mango', 'Dragon fruit', 'Passion fruit', 'Strawberries' , 'Blackberries','Mulberries', 'Kiwi', 'Pear',
     'Longan fruit', 'Soursop', 'Persimmon'
   ];
   
   const knownVegetables = [
-    'Spinach', 'Carrots', 'Red cabbage', 'Sugar snap peas', 'Brussels sprouts',
+    'Spinach', 'Malabar spinach', 'Carrots', 'Cucumber', 'Radish', 'Persian cucumber','Red cabbage', 'Sugar snap peas', 'Brussels sprouts',
     'Bell peppers', 'Zucchini', 'Cherry tomatoes', 'Broccoli', 'Kale',
-    'Bok choy', 'Spring onions', 'Asparagus', 'Artichoke hearts', 'Collard greens',
+    'Bok choy', 'Spring onions', 'Asparagus', 'Artichoke hearts', 'Mung bean sprouts','Mushrooms','Collard greens',
     'Watercress', 'Radicchio', 'Mizuna', 'Chinese broccoli'
   ];
 
